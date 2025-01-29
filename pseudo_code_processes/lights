@@ -1,0 +1,15 @@
+current_state = {'N-S': 'red', 'W-E': 'green'}
+
+def change_lights():
+    if current_state['N-S'] == 'red':
+        current_state = {'N-S': 'green', 'W-E': 'red'}
+    else:
+        current_state = {'N-S': 'red', 'W-E': 'green'}
+    update_shared_memory(current_state)
+
+while True:
+    if priority_signal_received():  # Vérifier si un véhicule prioritaire est détecté
+        handle_priority_lights()  # Passer le feu au vert pour une direction
+    else:
+        change_lights()
+    time.sleep(regular_interval)

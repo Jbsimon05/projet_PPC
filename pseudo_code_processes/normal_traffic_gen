@@ -1,0 +1,5 @@
+while True:
+    vehicle = generate_vehicle()  # Générer un véhicule avec direction aléatoire
+    section = determine_section(vehicle)  # Déterminer la route source
+    message_queue[section].put(vehicle)  # Envoyer dans la queue correspondante
+    time.sleep(random_interval())  # Pause aléatoire

@@ -1,0 +1,6 @@
+while True:
+    vehicle = generate_priority_vehicle()
+    section = determine_section(vehicle)
+    signal_priority_vehicle(section)  # Notifier le processus des feux
+    message_queue[section].put(vehicle)
+    time.sleep(random_interval())
