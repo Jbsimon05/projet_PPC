@@ -1,0 +1,8 @@
+while True:
+    for section, queue in message_queue.items():
+        if not queue.empty():
+            vehicle = queue.get()
+            if can_cross(vehicle, current_light_state):
+                allow_vehicle_to_pass(vehicle)
+            else:
+                requeue(vehicle, queue)

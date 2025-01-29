@@ -1,0 +1,4 @@
+while True:
+    data = gather_simulation_state()  # Collecter l’état des feux et des véhicules
+    send_to_display(data)  # Envoyer à l’interface via sockets
+    time.sleep(refresh_rate)
