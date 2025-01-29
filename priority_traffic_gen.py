@@ -1,12 +1,16 @@
 import random
 import time
 
+#Délais min et max de gen
+t_min = 15
+t_max = 20
+
 # Processus de génération de trafic prioritaire
 def priority_traffic(north, south, east, west, bouchons, sirene_N, sirene_S, sirene_E, sirene_W, passage):
     directions = ["N", "E", "S", "W"]
     while True:
-        # Génération d'un véhicule prioritaire toutes les 6-18 secondes
-        time.sleep(random.uniform(6, 18))
+        # Génération d'un véhicule prioritaire
+        time.sleep(random.uniform(t_min, t_max))
         vehicle = {
             "type": "priority",
             "source": random.choice(directions),
