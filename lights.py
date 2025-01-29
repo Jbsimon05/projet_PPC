@@ -8,7 +8,6 @@ def lights_manager(traffic_lights, signal_event) :
     traffic_lights = [1, 1, 0, 0] or [0, 0, 1, 1]
     """
     while True :
-
         if signal_event.is_set():
             print("High-priority vehicle detected! Adjusting lights...")
             # Adjust the lights to allow priority vehicle to pass
