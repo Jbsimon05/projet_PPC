@@ -2,7 +2,7 @@ import socket
 
 def main():
     host = 'localhost'
-    port = 8080
+    port = 9999
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((host, port))
