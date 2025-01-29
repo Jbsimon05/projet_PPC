@@ -1,6 +1,6 @@
 import time
 
-def coordinator(north, south, east, west, traffic_lights) :
+def coordinator_process(north, south, east, west, traffic_lights) :
     while True :
         try :
             if traffic_lights[0] == 1 :
