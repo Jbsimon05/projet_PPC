@@ -5,8 +5,8 @@ import time
 def priority_traffic(north, south, east, west, bouchons, sirene_N, sirene_S, sirene_E, sirene_W, passage):
     directions = ["N", "E", "S", "W"]
     while True:
-        # Génération d'un véhicule prioritaire toutes les 5-15 secondes
-        time.sleep(random.uniform(10, 15))
+        # Génération d'un véhicule prioritaire toutes les 6-18 secondes
+        time.sleep(random.uniform(6, 18))
         vehicle = {
             "type": "priority",
             "source": random.choice(directions),

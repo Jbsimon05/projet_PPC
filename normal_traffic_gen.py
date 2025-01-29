@@ -5,8 +5,8 @@ import time
 def normal_traffic(north, south, east, west, bouchons):
     directions = ["N", "S", "E", "W"]
     while True:
-        # Génération d'un véhicule toutes les 1-3 secondes
-        time.sleep(random.uniform(1, 3))
+        # Génération d'un véhicule toutes les 1-6 secondes
+        time.sleep(random.uniform(1, 6))
         vehicle = {
             "type": "normal",
             "source": random.choice(directions),
