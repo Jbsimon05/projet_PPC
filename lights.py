@@ -12,13 +12,18 @@ def lights_manager(traffic_lights, signal_event) :
         if signal_event.is_set() :
             print("High-priority vehicle detected! Adjusting lights...")
             # Write code to adjust the lights
+            # Changer la couleur du feu si nécéssaire 
             signal_event.clear()
         else :
             if traffic_lights == [1, 1, 0, 0] :
+                print("\n")
                 print("Traffic lights: East-West GREEN, orth-South RED")
+                print("\n")
                 traffic_lights = [0, 0, 1, 1]
                 time.sleep(6)
             else :
                 traffic_lights = [1, 1, 0, 0]
+                print("\n")
                 print("Traffic lights: North-South GREEN, East-West RED")
+                print("\n")
                 time.sleep(6)
