@@ -1,6 +1,6 @@
 import time
 
-#temps de passage
+#temps de passage d'un véhicule en s
 t_pass = 1
 
 def coordinator_process(north, south, east, west, traffic_lights) :
