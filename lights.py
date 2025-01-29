@@ -1,4 +1,4 @@
-import time()
+import time
 
 import multiprocessing
 
@@ -17,6 +17,8 @@ def lights_manager(traffic_lights, signal_event) :
             if traffic_lights == [1, 1, 0, 0] :
                 print("Traffic lights: East-West GREEN, orth-South RED")
                 traffic_lights = [0, 0, 1, 1]
+                time.sleep(6)
             else :
                 traffic_lights = [1, 1, 0, 0]
                 print("Traffic lights: North-South GREEN, East-West RED")
+                time.sleep(6)
