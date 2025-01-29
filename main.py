@@ -38,7 +38,7 @@ def main():
     #Lancement de la simulation
     start_display_server()
     while True:
-        update_message = f"\Bouchons:\nAu nord: {BOUCHONS[0]}, au sud: {BOUCHONS[1]}, à l'est: {BOUCHONS[2]}, à l'ouest: {BOUCHONS[3]}.\nFeux:\nAu nord: {'vert' if TRAFFIC_LIGHTS[0] else 'rouge'}, au sud: {'vert' if TRAFFIC_LIGHTS[1] else 'rouge'}, à l'est: {'vert' if TRAFFIC_LIGHTS[2] else 'rouge'}, à l'ouest: {'vert' if TRAFFIC_LIGHTS[3] else 'rouge'}."
+        update_message = f"\nBouchons:\nAu nord: {BOUCHONS[0]}, au sud: {BOUCHONS[1]}, à l'est: {BOUCHONS[2]}, à l'ouest: {BOUCHONS[3]}.\nFeux:\nAu nord: {'vert' if TRAFFIC_LIGHTS[0] else 'rouge'}, au sud: {'vert' if TRAFFIC_LIGHTS[1] else 'rouge'}, à l'est: {'vert' if TRAFFIC_LIGHTS[2] else 'rouge'}, à l'ouest: {'vert' if TRAFFIC_LIGHTS[3] else 'rouge'}."
         send_update(update_message)
         time.sleep(5)
 
