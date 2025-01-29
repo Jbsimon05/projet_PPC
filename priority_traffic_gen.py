@@ -2,7 +2,7 @@ import random
 import time
 
 # Processus de génération de trafic prioritaire
-def priority_traffic_gen(north, south, east, west, signal_event):
+def priority_traffic(north, south, east, west, signal_event):
     directions = ["N", "E", "S", "W"]
     while True:
         # Génération d'un véhicule prioritaire toutes les 5-15 secondes
