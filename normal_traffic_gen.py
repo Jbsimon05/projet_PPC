@@ -2,7 +2,7 @@ import random
 import time
 
 # Processus de génération de trafic normal
-def normal_traffic(north, south, east, west):
+def normal_traffic(north, south, east, west, passage):
     directions = ["N", "S", "E", "W"]
     while True:
         # Génération d'un véhicule toutes les 1-3 secondes
@@ -22,7 +22,9 @@ def normal_traffic(north, south, east, west):
             south.put(vehicle)
         elif vehicle["source"] == "E" :
             east.put(vehicle) 
-        else :
+        elif vehicle["source"] == "W" :
             west.put(vehicle)
+        else :
+            print("Erreur de définition du véhicule")
         # Affichage dans la console
         print(f"Normal vehicle generated: {vehicle}")

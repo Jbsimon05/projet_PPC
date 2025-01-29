@@ -1,30 +1,47 @@
 import time
 
-#temps de maintien au vert des feux en s
-t_feux = 6
-
-def lights_manager(traffic_lights, sirene_NS, sirene_EW) :
-    """
-    [North, South, East, West]
-    traffic_lights = [1, 1, 0, 0] or [0, 0, 1, 1]
-    """
+def lights_manager(traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_W, passage) :
     while True :
-        if sirene_NS.is_set():
+        #Gestion du trafic prioritaire
+        if sirene_N.is_set():
             print("Pin pon pin pon...")
-            print("High-priority vehicle detected! Adjusting lights...")
-            traffic_lights[:] = [1, 1, 0, 0]
-            sirene_NS.clear()
-            time.sleep(6)
+            print("Véhicule prioritaire détecté au nord! Ajustement des feux...")
+            traffic_lights = [1, 0, 0, 0, 0] #Vert seulement pour le nord
+            passage.acquire #Attente que le véhicule passe
+            sirene_N.clear()
+            traffic_lights = [0, 0, 1, 1, t_feux] #Vert pour EW
+        elif sirene_S.is_set():
+            print("Pin pon pin pon...")
+            print("Véhicule prioritaire détecté au sud! Ajustement des feux...")
+            traffic_lights = [0, 1, 0, 0, 0] #Vert seulement pour le sud
+            passage.acquire #Attente que le véhicule passe
+            sirene_S.clear()
+            traffic_lights = [0, 0, 1, 1, t_feux] #Vert pour EW
+        elif sirene_E.is_set():
+            print("Pin pon pin pon...")
+            print("Véhicule prioritaire détecté à l'est! Ajustement des feux...")
+            traffic_lights = [0, 0, 1, 0, 0] #Vert seulement pour l'est
+            passage.acquire #Attente que le véhicule passe
+            sirene_E.clear()
+            traffic_lights = [1, 1, 0, 0, t_feux] #Vert pour NS
+        elif sirene_W.is_set():
+            print("Pin pon pin pon...")
+            print("Véhicule prioritaire détecté à l'ouest! Ajustement des feux...")
+            traffic_lights = [0, 0, 0, 1, 0] #Vert seulement pour l'ouest
+            passage.acquire #Attente que le véhicule passe
+            sirene_W.clear()
+            traffic_lights = [1, 1, 0, 0, t_feux] #Vert pour NS
+        #Gestion du trafic normal
         else :
-            if traffic_lights == [1, 1, 0, 0] :
+            #Si temps de switch atteint, inversion des feux
+            if traffic_lights == [1, 1, 0, 0, 0] :
+                traffic_lights = [0, 0, 1, 1, t_feux]
                 print("\n")
                 print("Traffic lights: East-West GREEN, orth-South RED")
-                print("\n")
-                traffic_lights = [0, 0, 1, 1]
-                time.sleep(6)
-            else :
-                traffic_lights = [1, 1, 0, 0]
+            elif traffic_lights == [0, 0, 1, 1, 0] :
+                traffic_lights = [1, 1, 0, 0, t_feux]
                 print("\n")
                 print("Traffic lights: North-South GREEN, East-West RED")
-                print("\n")
-                time.sleep(6)
+            #Attente d'1s
+            time.sleep(1)
+            traffic_lights[4] += -1
