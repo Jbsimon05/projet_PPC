@@ -38,7 +38,11 @@ def main():
     #Lancement de la simulation
     start_display_server()
     while True:
+<<<<<<< HEAD
         update_message = f"update: north:{QUEUE_NORTH.qsize()}, south:{QUEUE_SOUTH.qsize()}, east:{QUEUE_EAST.qsize()}, west:{QUEUE_WEST.qsize()}, lights:north:{'green' if TRAFFIC_LIGHTS[0] else 'red'}, south:{'green' if TRAFFIC_LIGHTS[1] else 'red'}, east:{'green' if TRAFFIC_LIGHTS[2] else 'red'}, west:{'green' if TRAFFIC_LIGHTS[3] else 'red'}"
+=======
+        update_message = f"\Bouchons:\nAu nord: {BOUCHONS[0]}, au sud: {BOUCHONS[1]}, à l'est: {BOUCHONS[2]}, à l'ouest: {BOUCHONS[3]}.\nFeux:\nAu nord: {'vert' if TRAFFIC_LIGHTS[0] else 'rouge'}, au sud: {'vert' if TRAFFIC_LIGHTS[1] else 'rouge'}, à l'est: {'vert' if TRAFFIC_LIGHTS[2] else 'rouge'}, à l'ouest: {'vert' if TRAFFIC_LIGHTS[3] else 'rouge'}."
+>>>>>>> b10aebc44264909ec8f4d5f969d6b926c94c0bc0
         send_update(update_message)
         time.sleep(5)
 
