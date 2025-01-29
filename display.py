@@ -3,7 +3,7 @@ import threading
 
 clients = []
 
-def start_display_server(host='localhost', port=8080):
+def start_display_server(host='localhost', port=9999):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
     server_socket.listen(5)
@@ -29,7 +29,7 @@ def handle_client(client_socket):
             client_socket.close()
             break
 
-def broadcast(message, client_socket):
+def broadcast(message, client_socket=None):
     for client in clients:
         if client != client_socket:
             try:
