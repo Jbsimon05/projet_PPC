@@ -3,7 +3,7 @@ import multiprocessing
 from priority_traffic_gen import normal_traffic
 from priority_traffic_gen import priority_traffic
 
-if __name__ == '__main__' :
+def test():
     #Lancement de la simulation
     HIGH_PRIORITY_SIGNAL = multiprocessing.Event()
     #Génération des queues de provenance
@@ -17,3 +17,6 @@ if __name__ == '__main__' :
     #Lancement du trafic
     normal_traffic.start()
     priority_traffic.start()
+
+if __name__ == '__main__' :
+    test
