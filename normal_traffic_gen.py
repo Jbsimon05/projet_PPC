@@ -2,7 +2,7 @@ import random
 import time
 
 # Processus de génération de trafic normal
-def normal_traffic_gen(north, south, east, west):
+def normal_traffic(north, south, east, west):
     directions = ["N", "S", "E", "W"]
     while True:
         # Génération d'un véhicule toutes les 1-3 secondes
