@@ -1,7 +1,5 @@
 import time
 
-import multiprocessing
-
 def lights_manager(traffic_lights, signal_event) :
     """
     [North, South, East, West]
