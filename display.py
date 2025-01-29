@@ -1,9 +1,13 @@
 import socket
 import threading
 
+# Liste des clients connectés
 clients = []
 
 def start_display_server(host='localhost', port=9999):
+    """
+    Démarre le serveur d'affichage sur l'adresse et le port spécifiés
+    """
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
     server_socket.listen(5)
@@ -11,6 +15,9 @@ def start_display_server(host='localhost', port=9999):
     threading.Thread(target=accept_clients, args=(server_socket,)).start()
 
 def accept_clients(server_socket):
+    """
+    Accepte les connexions des clients et démarre un thread pour chaque client
+    """
     while True:
         client_socket, client_address = server_socket.accept()
         print(f"Client {client_address} connected")
@@ -18,6 +25,9 @@ def accept_clients(server_socket):
         threading.Thread(target=handle_client, args=(client_socket,)).start()
 
 def handle_client(client_socket):
+    """
+    Gère la communications avec un client connecté
+    """
     while True:
         try:
             message = client_socket.recv(1024).decode()
@@ -30,6 +40,9 @@ def handle_client(client_socket):
             break
 
 def broadcast(message, client_socket=None):
+    """
+    Diffuse un message à tous les clients connectés
+    """
     for client in clients:
         if client != client_socket:
             try:
@@ -39,6 +52,9 @@ def broadcast(message, client_socket=None):
                 client.close()
 
 def send_update(message):
+    """
+    Envoie une mise à jour à tous les clients connectés
+    """
     for client in clients:
         try:
             client.send(message.encode())
