@@ -1,9 +1,9 @@
 import multiprocessing
-
 from normal_traffic_gen import normal_traffic
 from priority_traffic_gen import priority_traffic
 from lights import lights_manager
 from coordinator import coordinator_process
+from display import start_display_server, send_update
 
 def main():
     # Lancement de la simulation (signaux prioritaires et feux)
@@ -27,6 +27,13 @@ def main():
     # Lancement du carrefour
     lights_proc.start()
     coordinator_proc.start()
+
+    start_display_server()
+
+    # Simulation loop
+    while True:
+        update_message = f"update: north:{QUEUE_NORTH.qsize()}, south:{QUEUE_SOUTH.qsize()}, east:{QUEUE_EAST.qsize()}, west:{QUEUE_WEST.qsize()}, lights:north:{'green' if TRAFFIC_LIGHTS[0] else 'red'}, south:{'green' if TRAFFIC_LIGHTS[1] else 'red'}, east:{'green' if TRAFFIC_LIGHTS[2] else 'red'}, west:{'green' if TRAFFIC_LIGHTS[3] else 'red'}"
+        send_update(update_message)
 
 if __name__ == "__main__":
     main()
