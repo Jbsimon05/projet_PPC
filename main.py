@@ -3,7 +3,7 @@ import multiprocessing
 from normal_traffic_gen import normal_traffic
 from priority_traffic_gen import priority_traffic
 from lights import lights_manager
-from coordinate import coordinator
+from coordinator import coordinator
 
 HIGH_PRIORITY_SIGNAL = multiprocessing.Event()
 TRAFFIC_LIGHTS = multiprocessing.Array('i', [1, 1, 0, 0])
