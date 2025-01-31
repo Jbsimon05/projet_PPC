@@ -1,10 +1,8 @@
 #pour la simulation
-import multiprocessing
-import time
+import multiprocessing, time
 
 #pour le display
-import socket
-import threading
+import socket, threading, json
 
 #imports locaux
 from normal_traffic_gen import normal_traffic
@@ -66,10 +64,25 @@ def broadcast(message, client_socket=None):
                 clients.remove(client)
                 client.close()
 
-def send_update(message):
+def send_update(bouchons, traffic_lights):
     """
-    Envoie une mise à jour à tous les clients connectés
+    Envoie un état mis à jour sous format JSON à tous les clients connectés
     """
+    update_data = {
+        "bouchons": {
+            "north": bouchons[0],
+            "south": bouchons[1],
+            "east": bouchons[2],
+            "west": bouchons[3]
+        },
+        "feux": {
+            "north": traffic_lights[0],
+            "south": traffic_lights[1],
+            "east": traffic_lights[2],
+            "west": traffic_lights[3]
+        }
+    }
+    message = json.dumps(update_data)  # Conversion en JSON
     for client in clients:
         try:
             client.send(message.encode())
@@ -106,8 +119,7 @@ def server():
     #Lancement de la simulation
     start_display_server()
     while True:
-        update_message = f"\nBouchons:\nAu nord: {BOUCHONS[0]}, au sud: {BOUCHONS[1]}, à l'est: {BOUCHONS[2]}, à l'ouest: {BOUCHONS[3]}.\nFeux:\nAu nord: {'vert' if TRAFFIC_LIGHTS[0] else 'rouge'}, au sud: {'vert' if TRAFFIC_LIGHTS[1] else 'rouge'}, à l'est: {'vert' if TRAFFIC_LIGHTS[2] else 'rouge'}, à l'ouest: {'vert' if TRAFFIC_LIGHTS[3] else 'rouge'}."
-        send_update(update_message)
+        send_update(BOUCHONS, TRAFFIC_LIGHTS)
         time.sleep(5)
 
 
