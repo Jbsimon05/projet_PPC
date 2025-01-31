@@ -36,10 +36,10 @@ def lights_manager(traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_
             #Si temps de switch atteint, inversion des feux
             if traffic_lights == [1, 1, 0, 0, 0] :
                 traffic_lights = [0, 0, 1, 1, t_feux]
-                print("\nTraffic lights: Nord-Sud : ROUGE, Est-Ouest : VERT")
+                print("\nFeux:\n Nord/Sud-ROUGE, Est/Ouest-VERT")
             elif traffic_lights == [0, 0, 1, 1, 0] :
                 traffic_lights = [1, 1, 0, 0, t_feux]
-                print("\nTraffic lights: Nord-Sud : VERT, Est-Ouest : ROUGE")
+                print("\nFeux:\n Nord/Sud-VERT, Est/Ouest-ROUGE")
             #Attente d'1s
             time.sleep(1)
             traffic_lights[4] += -1
