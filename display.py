@@ -1,5 +1,5 @@
 #Pour l'exécution concurrentielle et la com serv/client
-import threading, socket
+import threading, socket, json
 
 
 # Liste des clients connectés
