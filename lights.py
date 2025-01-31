@@ -1,3 +1,4 @@
+# Pour le temps d'exécution des actions
 import time
 
 

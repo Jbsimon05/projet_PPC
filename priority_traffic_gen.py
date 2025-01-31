@@ -1,8 +1,8 @@
-import random
-import time
+# Pour le réalisme et le temps d'exécution des actions
+import random, time
 
 
-#Délais min et max de gen
+#Délais min et max de gen en s
 t_min = 15
 t_max = 20
 
