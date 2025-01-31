@@ -11,8 +11,6 @@ from display import start_display_server, send_update
 
 #temps de switch des feux en s
 t_feux = 6
-# Liste des clients connectés
-clients = []
 
 
 def main():

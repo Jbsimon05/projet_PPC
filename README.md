@@ -20,6 +20,13 @@ The goal of this project is to design and implement a multi-process simulation i
 
 ### 3. How to Run the Project
 
+0. **Install Pygame**:
+  ```sh
+  sudo apt update
+  sudo apt install -y python3-pip python3-dev python3-pygame
+  pip install pygame
+  ```
+
 1. **Start the Simulation**:
    - Open a terminal and navigate to the project directory.
    - Run the `main.py` script:

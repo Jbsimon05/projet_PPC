@@ -1,6 +1,11 @@
 #Pour l'exécution concurrentielle et la com serv/client
 import threading, socket
 
+
+# Liste des clients connectés
+clients = []
+
+
 def start_display_server(host='localhost', port=9999):
     """
     Démarre le serveur d'affichage sur l'adresse et le port spécifiés
