@@ -8,9 +8,9 @@ t_max = 6
 
 
 # Processus de génération de trafic normal
-def normal_traffic(north, south, east, west, bouchons):
+def normal_traffic(circulation, north, south, east, west, bouchons):
     directions = ["N", "S", "E", "W"]
-    while True:
+    while circulation:
         # Génération d'un véhicule
         time.sleep(random.uniform(t_min, t_max))
         vehicle = {
@@ -25,16 +25,18 @@ def normal_traffic(north, south, east, west, bouchons):
         if vehicle["source"] == "N" :
             north.put(vehicle)
             bouchons[0] += 1
+            print(f"Un véhicule normal arrive du nord : {vehicle}")
         elif vehicle["source"] == "S" :
             south.put(vehicle)
             bouchons[1] += 1
+            print(f"Un véhicule normal arrive du sud : {vehicle}")
         elif vehicle["source"] == "E" :
             east.put(vehicle)
             bouchons[2] += 1
+            print(f"Un véhicule normal arrive de l'est : {vehicle}")
         elif vehicle["source"] == "W" :
             west.put(vehicle)
             bouchons[3] += 1
+            print(f"Un véhicule normal arrive de l'ouest : {vehicle}")
         else :
             print("Erreur de définition du véhicule")
-        # Affichage dans la console
-        print(f"Normal vehicle generated: {vehicle}")

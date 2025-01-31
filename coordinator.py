@@ -6,33 +6,22 @@ import time
 t_pass = 1
 
 
-def coordinator_process(north, south, east, west, bouchons, traffic_lights) :
-    while True :
-        if traffic_lights[0] == 1 : #Si NS au vert
-            #Gestion erreur queues vides
-            if not north.empty:
-                #1er véhicule au nord passe
-                vehicule1 = north.get()
-                bouchons[0] -= 1
-                print(f"Processing vehicule : {vehicule1}")
-                time.sleep(t_pass)
-            if not south.empty:
-                #1er véhicule au sud passe
-                vehicule2 = south.get()
-                bouchons[1] -= 1
-                print(f"Processing vehicule : {vehicule2}")
-                time.sleep(t_pass)
-        else :  #Si EW au vert
-            #Gestion erreur queues vides
-            if not east.empty:
-                #1er véhicule à l'est passe
-                vehicule1 = east.get()
-                bouchons[2] -= 1
-                print(f"Processing vehicule : {vehicule1}")
-                time.sleep(t_pass)
-            if not west.empty:
-                #1er véhicule à l'ouest passe
-                vehicule2 = west.get()
-                bouchons[3] -= 1
-                print(f"Processing vehicule : {vehicule1}")
-                time.sleep(t_pass)
+def coordinator_process(circulation, north, south, east, west, bouchons, traffic_lights) :
+    while circulation :
+        if traffic_lights[0] == 1 and not north.empty:
+            vehicule1 = north.get()
+            bouchons[0] -= 1
+            print("Un véhicule du nord passe")
+        if traffic_lights[1] == 1 and not south.empty:
+            vehicule1 = south.get()
+            bouchons[1] -= 1
+            print("Un véhicule du sud passe")
+        if traffic_lights[2] == 1 and not east.empty:
+            vehicule1 = east.get()
+            bouchons[2] -= 1
+            print("Un véhicule de l'est passe")
+        if traffic_lights[3] == 1 and not west.empty:
+            vehicule1 = west.get()
+            bouchons[3] -= 1
+            print("Un véhicule de l'ouest passe")
+        time.sleep(t_pass)

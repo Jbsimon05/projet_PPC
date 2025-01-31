@@ -64,7 +64,7 @@ def receive_data():
             break
     client_socket.close()
 
-def client():
+def main():
     """Boucle principale de Pygame."""
     threading.Thread(target=receive_data, daemon=True).start()
     running = True
@@ -80,4 +80,4 @@ def client():
     pygame.quit()
 
 if __name__ == "__main__":
-    client()
+    main()

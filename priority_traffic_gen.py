@@ -8,9 +8,9 @@ t_max = 20
 
 
 # Processus de génération de trafic prioritaire
-def priority_traffic(north, south, east, west, bouchons, sirene_N, sirene_S, sirene_E, sirene_W, passage):
+def priority_traffic(circulation, north, south, east, west, bouchons, sirene_N, sirene_S, sirene_E, sirene_W, passage):
     directions = ["N", "E", "S", "W"]
-    while True:
+    while circulation:
         # Génération d'un véhicule prioritaire
         time.sleep(random.uniform(t_min, t_max))
         vehicle = {
@@ -25,6 +25,7 @@ def priority_traffic(north, south, east, west, bouchons, sirene_N, sirene_S, sir
         if vehicle["source"] == "N" :
             north.put(vehicle)
             bouchons[0] += 1
+            print(f"Un véhicule prioritaire arrive du nord : {vehicle}")
             sirene_N.set()
             while not north.empty():
                 time.sleep(1)
@@ -32,6 +33,7 @@ def priority_traffic(north, south, east, west, bouchons, sirene_N, sirene_S, sir
         elif vehicle["source"] == "S" :
             south.put(vehicle)
             bouchons[1] += 1
+            print(f"Un véhicule prioritaire arrive du sud : {vehicle}")
             sirene_S.set()
             while not south.empty():
                 time.sleep(1)
@@ -39,6 +41,7 @@ def priority_traffic(north, south, east, west, bouchons, sirene_N, sirene_S, sir
         elif vehicle["source"] == "E" :
             east.put(vehicle)
             bouchons[2] += 1
+            print(f"Un véhicule prioritaire arrive de l'est : {vehicle}")
             sirene_E.set()
             while not east.empty():
                 time.sleep(1)
@@ -46,11 +49,10 @@ def priority_traffic(north, south, east, west, bouchons, sirene_N, sirene_S, sir
         elif vehicle["source"] == "W" :
             west.put(vehicle)
             bouchons[3] += 1
+            print(f"Un véhicule prioritaire arrive de l'est : {vehicle}")
             sirene_W.set()
             while not east.empty():
                 time.sleep(1)
             passage.release()
         else :
             print("Erreur de définition du véhicule")
-        # Affichage dans la console
-        print(f"Priority vehicle generated: {vehicle}")
