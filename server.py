@@ -1,8 +1,12 @@
+#pour la simulation
 import multiprocessing
 import time
+
+#pour le display
 import socket
 import threading
 
+#imports locaux
 from normal_traffic_gen import normal_traffic
 from priority_traffic_gen import priority_traffic
 from lights import lights_manager
