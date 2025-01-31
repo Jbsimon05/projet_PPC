@@ -1,5 +1,6 @@
 import time
 
+
 def lights_manager(traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_W, passage) :
     while True :
         #Gestion du trafic prioritaire

@@ -1,15 +1,79 @@
 import multiprocessing
 import time
+import socket
+import threading
+
 from normal_traffic_gen import normal_traffic
 from priority_traffic_gen import priority_traffic
 from lights import lights_manager
 from coordinator import coordinator_process
-from display import start_display_server, send_update
+
 
 #temps de switch des feux en s
 t_feux = 6
+# Liste des clients connectés
+clients = []
 
-def main():
+
+def start_display_server(host='localhost', port=9999):
+    """
+    Démarre le serveur d'affichage sur l'adresse et le port spécifiés
+    """
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind((host, port))
+    server_socket.listen(5)
+    print(f"Display server started on {host}:{port}")
+    threading.Thread(target=accept_clients, args=(server_socket,)).start()
+
+def accept_clients(server_socket):
+    """
+    Accepte les connexions des clients et démarre un thread pour chaque client
+    """
+    while True:
+        client_socket, client_address = server_socket.accept()
+        print(f"Client {client_address} connected")
+        clients.append(client_socket)
+        threading.Thread(target=handle_client, args=(client_socket,)).start()
+
+def handle_client(client_socket):
+    """
+    Gère la communications avec un client connecté
+    """
+    while True:
+        try:
+            message = client_socket.recv(1024).decode()
+            if not message:
+                break
+            broadcast(message, client_socket)
+        except:
+            clients.remove(client_socket)
+            client_socket.close()
+            break
+
+def broadcast(message, client_socket=None):
+    """
+    Diffuse un message à tous les clients connectés
+    """
+    for client in clients:
+        if client != client_socket:
+            try:
+                client.send(message.encode())
+            except:
+                clients.remove(client)
+                client.close()
+
+def send_update(message):
+    """
+    Envoie une mise à jour à tous les clients connectés
+    """
+    for client in clients:
+        try:
+            client.send(message.encode())
+        except:
+            clients.remove(client)
+            client.close()
+
+def server():
     #Génération signaux prioritaires et d'alerte et feux
     SIRENE_N = multiprocessing.Event()
     SIRENE_S = multiprocessing.Event()
@@ -42,5 +106,6 @@ def main():
         send_update(update_message)
         time.sleep(5)
 
+
 if __name__ == "__main__":
-    main()
+    server()

@@ -1,9 +1,11 @@
 import random
 import time
 
+
 #Délais min et max de gen
 t_min = 15
 t_max = 20
+
 
 # Processus de génération de trafic prioritaire
 def priority_traffic(north, south, east, west, bouchons, sirene_N, sirene_S, sirene_E, sirene_W, passage):
@@ -52,4 +54,3 @@ def priority_traffic(north, south, east, west, bouchons, sirene_N, sirene_S, sir
             print("Erreur de définition du véhicule")
         # Affichage dans la console
         print(f"Priority vehicle generated: {vehicle}")
-

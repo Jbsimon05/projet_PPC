@@ -1,6 +1,7 @@
 import socket
 
-def main():
+
+def client():
     host = 'localhost'
     port = 9999
 
@@ -18,5 +19,6 @@ def main():
     finally:
         client_socket.close()
 
+
 if __name__ == "__main__":
-    main()
+    client()

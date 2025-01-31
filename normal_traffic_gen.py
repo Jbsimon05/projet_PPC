@@ -1,9 +1,11 @@
 import random
 import time
 
+
 #Délais min et max de gen
 t_min = 1
 t_max = 6
+
 
 # Processus de génération de trafic normal
 def normal_traffic(north, south, east, west, bouchons):
