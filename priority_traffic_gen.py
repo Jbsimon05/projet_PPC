@@ -25,7 +25,7 @@ def priority_traffic(circulation, north, south, east, west, bouchons, sirene_N, 
         if vehicle["source"] == "N" :
             north.put(vehicle)
             bouchons[0] += 1
-            print(f"\nUn véhicule prioritaire arrive du nord : {vehicle}")
+            print(f"\nUn véhicule prioritaire arrive du nord !")
             sirene_N.set()
             while vehicle in north: #attente que le véhicule passe
                 time.sleep(1)
@@ -33,7 +33,7 @@ def priority_traffic(circulation, north, south, east, west, bouchons, sirene_N, 
         elif vehicle["source"] == "S" :
             south.put(vehicle)
             bouchons[1] += 1
-            print(f"\nUn véhicule prioritaire arrive du sud : {vehicle}")
+            print(f"\nUn véhicule prioritaire arrive du sud !")
             sirene_S.set()
             while vehicle in south: #attente que le véhicule passe
                 time.sleep(1)
@@ -41,7 +41,7 @@ def priority_traffic(circulation, north, south, east, west, bouchons, sirene_N, 
         elif vehicle["source"] == "E" :
             east.put(vehicle)
             bouchons[2] += 1
-            print(f"\nUn véhicule prioritaire arrive de l'est : {vehicle}")
+            print(f"\nUn véhicule prioritaire arrive de l'est !")
             sirene_E.set()
             while vehicle in east: #attente que le véhicule passe
                 time.sleep(1)
@@ -49,7 +49,7 @@ def priority_traffic(circulation, north, south, east, west, bouchons, sirene_N, 
         elif vehicle["source"] == "W" :
             west.put(vehicle)
             bouchons[3] += 1
-            print(f"\nUn véhicule prioritaire arrive de l'est : {vehicle}")
+            print(f"\nUn véhicule prioritaire arrive de l'est !")
             sirene_W.set()
             while vehicle in west: #attente que le véhicule passe
                 time.sleep(1)
