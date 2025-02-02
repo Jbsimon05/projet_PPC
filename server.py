@@ -48,6 +48,8 @@ def main():
         if BOUCHONS[0]>9 or BOUCHONS[0]>9 or BOUCHONS[0]>9 or BOUCHONS[0]>9:
             print("!!! Trafic saturé, intersection bloquée")
             circulation = False
+        print("\n", TRAFFIC_LIGHTS[0], TRAFFIC_LIGHTS[1], TRAFFIC_LIGHTS[2], TRAFFIC_LIGHTS[3], TRAFFIC_LIGHTS[4])
+        print(BOUCHONS[0], BOUCHONS[1], BOUCHONS[2], BOUCHONS[3])
 
 
 if __name__ == "__main__":

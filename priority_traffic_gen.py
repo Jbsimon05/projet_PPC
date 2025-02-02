@@ -25,34 +25,34 @@ def priority_traffic(circulation, north, south, east, west, bouchons, sirene_N, 
         if vehicle["source"] == "N" :
             north.put(vehicle)
             bouchons[0] += 1
-            print(f"Un véhicule prioritaire arrive du nord : {vehicle}")
+            print(f"\nUn véhicule prioritaire arrive du nord : {vehicle}")
             sirene_N.set()
-            while not north.empty():
+            while vehicle in north: #attente que le véhicule passe
                 time.sleep(1)
             passage.release()
         elif vehicle["source"] == "S" :
             south.put(vehicle)
             bouchons[1] += 1
-            print(f"Un véhicule prioritaire arrive du sud : {vehicle}")
+            print(f"\nUn véhicule prioritaire arrive du sud : {vehicle}")
             sirene_S.set()
-            while not south.empty():
+            while vehicle in south: #attente que le véhicule passe
                 time.sleep(1)
             passage.release()
         elif vehicle["source"] == "E" :
             east.put(vehicle)
             bouchons[2] += 1
-            print(f"Un véhicule prioritaire arrive de l'est : {vehicle}")
+            print(f"\nUn véhicule prioritaire arrive de l'est : {vehicle}")
             sirene_E.set()
-            while not east.empty():
+            while vehicle in east: #attente que le véhicule passe
                 time.sleep(1)
             passage.release()
         elif vehicle["source"] == "W" :
             west.put(vehicle)
             bouchons[3] += 1
-            print(f"Un véhicule prioritaire arrive de l'est : {vehicle}")
+            print(f"\nUn véhicule prioritaire arrive de l'est : {vehicle}")
             sirene_W.set()
-            while not east.empty():
+            while vehicle in west: #attente que le véhicule passe
                 time.sleep(1)
             passage.release()
         else :
-            print("Erreur de définition du véhicule")
+            print("\nErreur de définition du véhicule")

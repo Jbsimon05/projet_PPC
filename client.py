@@ -17,6 +17,9 @@ LIGHT_POSITIONS = {
     "west": (100, 230)
 }
 
+#port de transmission
+port = 5555
+
 # Initialisation de Pygame
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -50,7 +53,6 @@ def receive_data():
     """Écoute le serveur et met à jour les données de simulation."""
     global traffic_data
     host = 'localhost'
-    port = 9999
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((host, port))
     while True:

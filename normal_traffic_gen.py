@@ -25,18 +25,18 @@ def normal_traffic(circulation, north, south, east, west, bouchons):
         if vehicle["source"] == "N" :
             north.put(vehicle)
             bouchons[0] += 1
-            print(f"Un véhicule normal arrive du nord : {vehicle}")
+            print(f"\nUn véhicule normal arrive du nord : {vehicle}")
         elif vehicle["source"] == "S" :
             south.put(vehicle)
             bouchons[1] += 1
-            print(f"Un véhicule normal arrive du sud : {vehicle}")
+            print(f"\nUn véhicule normal arrive du sud : {vehicle}")
         elif vehicle["source"] == "E" :
             east.put(vehicle)
             bouchons[2] += 1
-            print(f"Un véhicule normal arrive de l'est : {vehicle}")
+            print(f"\nUn véhicule normal arrive de l'est : {vehicle}")
         elif vehicle["source"] == "W" :
             west.put(vehicle)
             bouchons[3] += 1
-            print(f"Un véhicule normal arrive de l'ouest : {vehicle}")
+            print(f"\nUn véhicule normal arrive de l'ouest : {vehicle}")
         else :
-            print("Erreur de définition du véhicule")
+            print("\nErreur de définition du véhicule")
