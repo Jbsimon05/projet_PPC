@@ -3,8 +3,8 @@ import random, time
 
 
 #Délais min et max de gen en s
-t_min = 0.1
-t_max = 0.2
+t_min = 1
+t_max = 2
 
 
 # Processus de génération de trafic normal

@@ -58,6 +58,7 @@ def broadcast(message, client_socket=None):
 def send_update(bouchons, traffic_lights):
     """
     Envoie un état mis à jour sous format JSON à tous les clients connectés
+    Nombre de véhivules dans chaque directions et état des feux
     """
     update_data = {
         "bouchons": {
