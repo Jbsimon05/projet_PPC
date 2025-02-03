@@ -13,6 +13,8 @@ from display import start_display_server, send_update
 
 #temps de switch des feux en s
 t_feux = 6
+#temps de simulation souhaitée en s
+t_sim = 20
 
 
 def end(normal_traffic_proc, priority_traffic_proc, lights_proc, coordinator_proc):
@@ -34,14 +36,15 @@ def main():
     PASSAGE = multiprocessing.Event()
     TRAFFIC_LIGHTS = multiprocessing.Array('i', [1, 1, 0, 0, t_feux])   #Vert pour NS par défaut
     BOUCHONS = multiprocessing.Array('i', [0, 0, 0, 0])                 #Nb de voitures pas file
-    #Génération des queues de provenance, du dictionnaire partagé et de la variable d'arrêt
+    #Génération des queues de provenance, du dictionnaire partagé et des variables d'arrêts
     QUEUE_NORTH = multiprocessing.Queue()
     QUEUE_SOUTH = multiprocessing.Queue()
     QUEUE_EAST = multiprocessing.Queue()
     QUEUE_WEST = multiprocessing.Queue()
     MANAGER = multiprocessing.Manager()
     VEHICLES = MANAGER.dict()  # Clé : ID du véhicule, Valeur : True
-    circulation = True
+    circulation = True #circulation autorisée ?
+    duree = 0 #durée effective de simulation en s
     # Génération du trafic
     normal_traffic_proc = multiprocessing.Process(target=normal_traffic, args=(QUEUE_NORTH, QUEUE_SOUTH, QUEUE_EAST, QUEUE_WEST, BOUCHONS, VEHICLES))
     priority_traffic_proc = multiprocessing.Process(target=priority_traffic, args=(QUEUE_NORTH, QUEUE_SOUTH, QUEUE_EAST, QUEUE_WEST, BOUCHONS, VEHICLES, SIRENE_N, SIRENE_S, SIRENE_E, SIRENE_W, PASSAGE))
@@ -59,12 +62,17 @@ def main():
     while circulation:
         send_update(BOUCHONS, TRAFFIC_LIGHTS)
         time.sleep(0.5)
+        duree += 0.5
         if BOUCHONS[0]>9 or BOUCHONS[1]>9 or BOUCHONS[2]>9 or BOUCHONS[3]>9:
-            print("\n!!! Trafic saturé, intersection bloquée")
+            print("\nTrafic saturé, intersection bloquée...")
             circulation = False
-        print("\n", TRAFFIC_LIGHTS[0], TRAFFIC_LIGHTS[1], TRAFFIC_LIGHTS[2], TRAFFIC_LIGHTS[3], TRAFFIC_LIGHTS[4]) #debug
-        print(BOUCHONS[0], BOUCHONS[1], BOUCHONS[2], BOUCHONS[3]) #debug
-        print(circulation) #debug
+        if duree > t_sim:
+            print("\nTemps de simulation écoulé, intersection arrêtée...")
+            circulation = False
+        #debug
+        print("\n", TRAFFIC_LIGHTS[0], TRAFFIC_LIGHTS[1], TRAFFIC_LIGHTS[2], TRAFFIC_LIGHTS[3], TRAFFIC_LIGHTS[4])
+        print(BOUCHONS[0], BOUCHONS[1], BOUCHONS[2], BOUCHONS[3])
+        print(circulation)
     end(normal_traffic_proc, priority_traffic_proc, lights_proc, coordinator_proc)
 
 
