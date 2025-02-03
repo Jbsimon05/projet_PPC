@@ -4,16 +4,21 @@ import random, time
 
 #Délais min et max de gen en s
 t_min = 1
-t_max = 2
+t_max = 3
+
+#index max
+i_max = 1000
 
 
 # Processus de génération de trafic normal
 def normal_traffic(north, south, east, west, bouchons, vehicles):
     directions = ["N", "S", "E", "W"]
+    index = 1
     while True:
         # Génération d'un véhicule
         time.sleep(random.uniform(t_min, t_max))
         vehicle = {
+            "id": index*2,
             "type": "normal",
             "source": random.choice(directions),
             "destination": random.choice(directions)
@@ -40,3 +45,12 @@ def normal_traffic(north, south, east, west, bouchons, vehicles):
             print(f"\nUn véhicule normal arrive de l'ouest : {vehicle}")
         else :
             print("\nErreur de définition du véhicule")
+        #matriculation du véhicule
+        vehicles[vehicle["id"]] = True
+        #Incrémentation de la matriculation
+        if index > i_max:
+            index = 1
+        elif index > 0:
+            index += 1
+        else:
+            print("\nErreur de matriculation")

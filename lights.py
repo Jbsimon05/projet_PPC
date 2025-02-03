@@ -2,7 +2,7 @@
 import time
 
 
-def lights_manager(vehicles, traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_W, passage) :
+def lights_manager(traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_W, passage) :
     while True:
         #Gestion du trafic prioritaire
         #si sirène déclenchée depuis une direction, trafic bloqué dans cette direction jusqu'à fin de l'alerte
@@ -17,6 +17,7 @@ def lights_manager(vehicles, traffic_lights, t_feux, sirene_N, sirene_S, sirene_
             traffic_lights[3] = 0
             while not passage.is_set(): #Attente que le véhicule passe
                 time.sleep(0.5)
+            passage.clear()
             #Vert seulement pour EW
             traffic_lights[0] = 0
             traffic_lights[2] = 1
@@ -33,6 +34,7 @@ def lights_manager(vehicles, traffic_lights, t_feux, sirene_N, sirene_S, sirene_
             traffic_lights[3] = 0
             while not passage.is_set(): #Attente que le véhicule passe
                 time.sleep(0.5)
+            passage.clear()
             #Vert seulement pour EW
             traffic_lights[1] = 0
             traffic_lights[2] = 1
@@ -49,6 +51,7 @@ def lights_manager(vehicles, traffic_lights, t_feux, sirene_N, sirene_S, sirene_
             traffic_lights[3] = 0
             while not passage.is_set(): #Attente que le véhicule passe
                 time.sleep(0.5)
+            passage.clear()
             #Vert seulement pour NS
             traffic_lights[0] = 1
             traffic_lights[1] = 1
@@ -65,6 +68,7 @@ def lights_manager(vehicles, traffic_lights, t_feux, sirene_N, sirene_S, sirene_
             traffic_lights[3] = 1
             while not passage.is_set(): #Attente que le véhicule passe
                 time.sleep(0.5)
+            passage.clear()
             #Vert seulement pour NS
             traffic_lights[0] = 1
             traffic_lights[1] = 1

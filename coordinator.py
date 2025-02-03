@@ -12,20 +12,24 @@ def coordinator_process(north, south, east, west, bouchons,  vehicles, traffic_l
         if traffic_lights[0] == 1 and (not north.empty()):
             v = north.get()
             bouchons[0] -= 1
+            del vehicles[v["id"]]
             print("\nUn véhicule du nord passe")
         time.sleep(t_pass/4)
         if traffic_lights[1] == 1 and (not south.empty()):
             v = south.get()
             bouchons[1] -= 1
+            del vehicles[v["id"]]
             print("\nUn véhicule du sud passe")
         time.sleep(t_pass/4)
         if traffic_lights[2] == 1 and (not east.empty()):
             v = east.get()
             bouchons[2] -= 1
+            del vehicles[v["id"]]
             print("\nUn véhicule de l'est passe")
         time.sleep(t_pass/4)
         if traffic_lights[3] == 1 and (not west.empty()):
             v = west.get()
             bouchons[3] -= 1
+            del vehicles[v["id"]]
             print("\nUn véhicule de l'ouest passe")
         time.sleep(t_pass/4)
