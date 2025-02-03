@@ -8,9 +8,9 @@ t_max = 0.2
 
 
 # Processus de génération de trafic normal
-def normal_traffic(circulation, north, south, east, west, bouchons, vehicles):
+def normal_traffic(north, south, east, west, bouchons, vehicles):
     directions = ["N", "S", "E", "W"]
-    while circulation:
+    while True:
         # Génération d'un véhicule
         time.sleep(random.uniform(t_min, t_max))
         vehicle = {

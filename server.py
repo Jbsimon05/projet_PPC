@@ -1,5 +1,7 @@
-#pour la processus et le temps d'exécution des actions
+#pour le processus et le temps d'exécution des actions
 import multiprocessing, time
+#pour la sortie de la simulation
+import signal, os
 
 #imports locaux
 from normal_traffic_gen import normal_traffic
@@ -11,6 +13,16 @@ from display import start_display_server, send_update
 
 #temps de switch des feux en s
 t_feux = 6
+
+
+def end(normal_traffic_proc, priority_traffic_proc, lights_proc, coordinator_proc):
+    #fin des processes enfants
+    normal_traffic_proc.terminate()
+    priority_traffic_proc.terminate()
+    lights_proc.terminate()
+    coordinator_proc.terminate()
+    #fin de la simulation
+    os.kill(os.getpid(), signal.SIGTERM)
 
 
 def main():
@@ -27,31 +39,38 @@ def main():
     QUEUE_SOUTH = multiprocessing.Queue()
     QUEUE_EAST = multiprocessing.Queue()
     QUEUE_WEST = multiprocessing.Queue()
-    manager = multiprocessing.Manager()
-    VEHICLES = manager.dict()  # Clé : ID du véhicule, Valeur : True/False
-    CIRCULATION = multiprocessing.Value('b', True)
+    MANAGER = multiprocessing.Manager()
+    VEHICLES = MANAGER.dict()  # Clé : ID du véhicule, Valeur : True/False
+    circulation = True
+    # print(CIRCULATION) #debug
     # Génération du trafic
-    normal_traffic_proc = multiprocessing.Process(target=normal_traffic, args=(CIRCULATION, QUEUE_NORTH, QUEUE_SOUTH, QUEUE_EAST, QUEUE_WEST, BOUCHONS, VEHICLES))
-    priority_traffic_proc = multiprocessing.Process(target=priority_traffic, args=(CIRCULATION, QUEUE_NORTH, QUEUE_SOUTH, QUEUE_EAST, QUEUE_WEST, BOUCHONS, VEHICLES, SIRENE_N, SIRENE_S, SIRENE_E, SIRENE_W, PASSAGE))
+    normal_traffic_proc = multiprocessing.Process(target=normal_traffic, args=(QUEUE_NORTH, QUEUE_SOUTH, QUEUE_EAST, QUEUE_WEST, BOUCHONS, VEHICLES))
+    priority_traffic_proc = multiprocessing.Process(target=priority_traffic, args=(QUEUE_NORTH, QUEUE_SOUTH, QUEUE_EAST, QUEUE_WEST, BOUCHONS, VEHICLES, SIRENE_N, SIRENE_S, SIRENE_E, SIRENE_W, PASSAGE))
     # Génération du carrefour
-    lights_proc = multiprocessing.Process(target=lights_manager, args=(CIRCULATION, VEHICLES, TRAFFIC_LIGHTS, t_feux, SIRENE_N, SIRENE_S, SIRENE_E, SIRENE_W, PASSAGE))
-    coordinator_proc = multiprocessing.Process(target=coordinator_process, args=(CIRCULATION, QUEUE_NORTH, QUEUE_SOUTH, QUEUE_EAST, QUEUE_WEST, BOUCHONS, VEHICLES, TRAFFIC_LIGHTS))
+    lights_proc = multiprocessing.Process(target=lights_manager, args=(VEHICLES, TRAFFIC_LIGHTS, t_feux, SIRENE_N, SIRENE_S, SIRENE_E, SIRENE_W, PASSAGE))
+    coordinator_proc = multiprocessing.Process(target=coordinator_process, args=(QUEUE_NORTH, QUEUE_SOUTH, QUEUE_EAST, QUEUE_WEST, BOUCHONS, VEHICLES, TRAFFIC_LIGHTS))
     # Lancement du trafic
     normal_traffic_proc.start()
+    # normal_traffic_proc.terminate()
     priority_traffic_proc.start()
+    # priority_traffic_proc.terminate()
     # Lancement du carrefour
     lights_proc.start()
+    # lights_proc.terminate()
     coordinator_proc.start()
+    # coordinator_proc.terminate()
     #Lancement de la simulation
     start_display_server()
-    while True:
+    while circulation:
         send_update(BOUCHONS, TRAFFIC_LIGHTS)
         time.sleep(0.1)
         if BOUCHONS[0]>9 or BOUCHONS[1]>9 or BOUCHONS[2]>9 or BOUCHONS[3]>9:
-            print("!!! Trafic saturé, intersection bloquée")
+            print("\n!!! Trafic saturé, intersection bloquée")
             circulation = False
-        print("\n", TRAFFIC_LIGHTS[0], TRAFFIC_LIGHTS[1], TRAFFIC_LIGHTS[2], TRAFFIC_LIGHTS[3], TRAFFIC_LIGHTS[4])
-        print(BOUCHONS[0], BOUCHONS[1], BOUCHONS[2], BOUCHONS[3])
+        print("\n", TRAFFIC_LIGHTS[0], TRAFFIC_LIGHTS[1], TRAFFIC_LIGHTS[2], TRAFFIC_LIGHTS[3], TRAFFIC_LIGHTS[4]) #debug
+        print(BOUCHONS[0], BOUCHONS[1], BOUCHONS[2], BOUCHONS[3]) #debug
+        print(circulation) #debug
+    end(normal_traffic_proc, priority_traffic_proc, lights_proc, coordinator_proc)
 
 
 if __name__ == "__main__":

@@ -2,8 +2,8 @@
 import time
 
 
-def lights_manager(circulation, vehicles, traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_W, passage) :
-    while circulation :
+def lights_manager(vehicles, traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_W, passage) :
+    while True:
         #Gestion du trafic prioritaire
         #si sirène déclenchée depuis une direction, trafic bloqué dans cette direction jusqu'à fin de l'alerte
         if sirene_N.is_set():

@@ -16,7 +16,7 @@ def vehicle_still_in_queue(vehicle, queue):
 
 
 # Processus de génération de trafic prioritaire
-def priority_traffic(circulation, north, south, east, west, bouchons, vehicles, sirene_N, sirene_S, sirene_E, sirene_W, passage):
+def priority_traffic(north, south, east, west, bouchons, vehicles, sirene_N, sirene_S, sirene_E, sirene_W, passage):
     directions = ["N", "E", "S", "W"]
     while False:
         # Génération d'un véhicule prioritaire

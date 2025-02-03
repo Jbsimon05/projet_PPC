@@ -15,7 +15,7 @@ def start_display_server(host='localhost', port=port):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
     server_socket.listen(5)
-    print(f"Display server started on {host}:{port}")
+    print(f"Visuel du carrefour en live maintenant sur {host}, port {port}")
     threading.Thread(target=accept_clients, args=(server_socket,)).start()
 
 def accept_clients(server_socket):
