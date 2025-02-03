@@ -3,12 +3,12 @@ import random, time
 
 
 #Délais min et max de gen en s
-t_min = 1
-t_max = 6
+t_min = 0.1
+t_max = 0.2
 
 
 # Processus de génération de trafic normal
-def normal_traffic(circulation, north, south, east, west, bouchons):
+def normal_traffic(circulation, north, south, east, west, bouchons, vehicles):
     directions = ["N", "S", "E", "W"]
     while circulation:
         # Génération d'un véhicule

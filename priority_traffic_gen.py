@@ -3,14 +3,22 @@ import random, time
 
 
 #Délais min et max de gen en s
-t_min = 15
-t_max = 20
+t_min = 6
+t_max = 12
+
+#Fonction de parcours d'une queue
+def vehicle_still_in_queue(vehicle, queue):
+    test = False
+    for v in queue:
+        if v == vehicle:
+            test = True
+    return test
 
 
 # Processus de génération de trafic prioritaire
-def priority_traffic(circulation, north, south, east, west, bouchons, sirene_N, sirene_S, sirene_E, sirene_W, passage):
+def priority_traffic(circulation, north, south, east, west, bouchons, vehicles, sirene_N, sirene_S, sirene_E, sirene_W, passage):
     directions = ["N", "E", "S", "W"]
-    while circulation:
+    while False:
         # Génération d'un véhicule prioritaire
         time.sleep(random.uniform(t_min, t_max))
         vehicle = {
@@ -27,32 +35,32 @@ def priority_traffic(circulation, north, south, east, west, bouchons, sirene_N, 
             bouchons[0] += 1
             print(f"\nUn véhicule prioritaire arrive du nord !")
             sirene_N.set()
-            while vehicle in north: #attente que le véhicule passe
-                time.sleep(1)
-            passage.release()
+            while north.qsize : #attente que le véhicule passe
+                time.sleep(0.5)
+            passage.set()
         elif vehicle["source"] == "S" :
             south.put(vehicle)
             bouchons[1] += 1
             print(f"\nUn véhicule prioritaire arrive du sud !")
             sirene_S.set()
-            while vehicle in south: #attente que le véhicule passe
-                time.sleep(1)
-            passage.release()
+            while vehicle_still_in_queue(vehicle, south): #attente que le véhicule passe
+                time.sleep(0.5)
+            passage.set()
         elif vehicle["source"] == "E" :
             east.put(vehicle)
             bouchons[2] += 1
             print(f"\nUn véhicule prioritaire arrive de l'est !")
             sirene_E.set()
-            while vehicle in east: #attente que le véhicule passe
-                time.sleep(1)
-            passage.release()
+            while vehicle_still_in_queue(vehicle, east): #attente que le véhicule passe
+                time.sleep(0.5)
+            passage.set()
         elif vehicle["source"] == "W" :
             west.put(vehicle)
             bouchons[3] += 1
             print(f"\nUn véhicule prioritaire arrive de l'est !")
             sirene_W.set()
-            while vehicle in west: #attente que le véhicule passe
-                time.sleep(1)
-            passage.release()
+            while vehicle_still_in_queue(vehicle, west): #attente que le véhicule passe
+                time.sleep(0.5)
+            passage.set()
         else :
             print("\nErreur de définition du véhicule")
