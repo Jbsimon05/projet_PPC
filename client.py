@@ -1,7 +1,6 @@
-import pygame
-import socket
-import json
-import threading
+#Pour l'exécution concurrentielle, la com serv/client, les données des messages et l'interface de simulation
+import threading, socket, json, pygame
+
 
 # Paramètres graphiques
 WIDTH, HEIGHT = 500, 500
@@ -100,7 +99,6 @@ def main():
     threading.Thread(target=receive_data, daemon=True).start()
     running = True
     clock = pygame.time.Clock()
-
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

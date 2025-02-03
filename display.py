@@ -1,4 +1,4 @@
-#Pour l'exécution concurrentielle et la com serv/client
+#Pour l'exécution concurrentielle, la com serv/client et les données des messages
 import threading, socket, json
 
 
