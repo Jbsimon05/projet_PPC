@@ -3,8 +3,8 @@ import random, time
 
 
 #Délais min et max de gen en s
-t_min = 1
-t_max = 3
+t_min = 0.5
+t_max = 2
 
 #index max
 i_max = 1000

@@ -5,7 +5,7 @@ import threading, socket, json
 # Liste des clients connectés
 clients = []
 #port de transmission
-port = 5555
+port = 6666
 
 
 def start_display_server(host='localhost', port=port):
