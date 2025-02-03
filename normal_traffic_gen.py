@@ -6,6 +6,9 @@ import random, time
 t_min = 0.5
 t_max = 2
 
+#temps de passage possibles du véhicule
+t_veh = [0.5, 1, 1.5, 2]
+
 #index max
 i_max = 1000
 
@@ -21,7 +24,8 @@ def normal_traffic(north, south, east, west, bouchons, vehicles):
             "id": index*2,
             "type": "normal",
             "source": random.choice(directions),
-            "destination": random.choice(directions)
+            "destination": random.choice(directions),
+            "t_pass": random.choice(t_veh)
         }
         #Gestion de l'erreur du demi-tour
         while vehicle["source"] == vehicle["destination"]:
@@ -30,19 +34,23 @@ def normal_traffic(north, south, east, west, bouchons, vehicles):
         if vehicle["source"] == "N" :
             north.put(vehicle)
             bouchons[0] += 1
-            print(f"\nUn véhicule normal arrive du nord : {vehicle}")
+            print(f"\nUn véhicule normal arrive du nord !")
+            print("Matricule : ", vehicle["id"])
         elif vehicle["source"] == "S" :
             south.put(vehicle)
             bouchons[1] += 1
-            print(f"\nUn véhicule normal arrive du sud : {vehicle}")
+            print(f"\nUn véhicule normal arrive du sud !")
+            print("Matricule : ", vehicle["id"])
         elif vehicle["source"] == "E" :
             east.put(vehicle)
             bouchons[2] += 1
-            print(f"\nUn véhicule normal arrive de l'est : {vehicle}")
+            print(f"\nUn véhicule normal arrive de l'est !")
+            print("Matricule : ", vehicle["id"])
         elif vehicle["source"] == "W" :
             west.put(vehicle)
             bouchons[3] += 1
-            print(f"\nUn véhicule normal arrive de l'ouest : {vehicle}")
+            print(f"\nUn véhicule normal arrive de l'ouest !")
+            print("Matricule : ", vehicle["id"])
         else :
             print("\nErreur de définition du véhicule")
         #matriculation du véhicule

@@ -6,6 +6,9 @@ import random, time
 t_min = 3
 t_max = 9
 
+#temps de passage possibles du véhicule
+t_veh = [0.1]
+
 #index max
 i_max = 1000
 
@@ -30,7 +33,8 @@ def priority_traffic(north, south, east, west, bouchons, vehicles, sirene_N, sir
             "id": index*2 - 1,
             "type": "priority",
             "source": random.choice(directions),
-            "destination": random.choice(directions)
+            "destination": random.choice(directions),
+            "t_pass": random.choice(t_veh)
         }
         #Gestion de l'erreur du demi-tour
         while vehicle["source"] == vehicle["destination"]:
