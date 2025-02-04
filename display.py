@@ -1,10 +1,11 @@
-#Pour l'exécution concurrentielle, la com serv/client et les données des messages
+# Pour l'exécution concurrentielle, la com serv/client et les données des messages
 import threading, socket, json
 
 
 # Liste des clients connectés
 clients = []
-#port de transmission
+
+# Port de transmission
 port = 6666
 
 

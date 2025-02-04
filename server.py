@@ -14,7 +14,7 @@ from display import start_display_server, send_update
 #temps de switch des feux en s
 t_feux = 6
 #temps de simulation souhaitée en s
-t_sim = 20
+t_sim = 100
 
 
 def end(normal_traffic_proc, priority_traffic_proc, lights_proc, coordinator_proc):
