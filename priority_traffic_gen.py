@@ -43,25 +43,25 @@ def priority_traffic(north, south, east, west, bouchons, vehicles, sirene_N, sir
         if vehicle["source"] == "N":
             north.put(vehicle)
             bouchons[0] += 1
-            print(f"\nUn véhicule prioritaire arrive du nord !")
+            print("\nUn véhicule prioritaire arrive du nord !")
             print("Matricule : ", vehicle["id"])
             sirene_N.set()
         elif vehicle["source"] == "S":
             south.put(vehicle)
             bouchons[1] += 1
-            print(f"\nUn véhicule prioritaire arrive du sud !")
+            print("\nUn véhicule prioritaire arrive du sud !")
             print("Matricule : ", vehicle["id"])
             sirene_S.set()
         elif vehicle["source"] == "E":
             east.put(vehicle)
             bouchons[2] += 1
-            print(f"\nUn véhicule prioritaire arrive de l'est !")
+            print("\nUn véhicule prioritaire arrive de l'est !")
             print("Matricule : ", vehicle["id"])
             sirene_E.set()
         elif vehicle["source"] == "W":
             west.put(vehicle)
             bouchons[3] += 1
-            print(f"\nUn véhicule prioritaire arrive de l'est !")
+            print("\nUn véhicule prioritaire arrive de l'est !")
             print("Matricule : ", vehicle["id"])
             sirene_W.set()
         else :
