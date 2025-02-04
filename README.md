@@ -46,3 +46,7 @@ The goal of this project is to design and implement a multi-process, multi-threa
 ### 4. Project Structure
 
 ![Project structure](Pictures/image_arborescence.png)
+
+### 5. Client interface
+
+![Client interface](Pictures/image_pygame.png)
