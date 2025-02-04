@@ -55,10 +55,19 @@ def broadcast(message, client_socket=None):
                 clients.remove(client)
                 client.close()
 
-def send_update(bouchons, traffic_lights):
+def queue_to_list(queue):
+    """Convertit une queue en liste sans la vider."""
+    items = []
+    while not queue.empty():
+        item = queue.get()
+        items.append(item)
+        queue.put(item)
+    return items
+
+def send_update(bouchons, traffic_lights, north, south, east, west):
     """
     Envoie un état mis à jour sous format JSON à tous les clients connectés
-    Nombre de véhivules dans chaque directions et état des feux
+    Nombre de véhivules dans chaque directions, état des feux et contenu des queues
     """
     update_data = {
         "bouchons": {
@@ -72,6 +81,12 @@ def send_update(bouchons, traffic_lights):
             "south": traffic_lights[1],
             "east": traffic_lights[2],
             "west": traffic_lights[3]
+        },
+        "queues": {
+            "north": queue_to_list(north),
+            "south": queue_to_list(south),
+            "east": queue_to_list(east),
+            "west": queue_to_list(west)
         }
     }
     message = json.dumps(update_data)  # Conversion en JSON

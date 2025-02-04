@@ -60,7 +60,11 @@ def main():
     #Lancement de la simulation
     start_display_server()
     while circulation:
-        send_update(BOUCHONS, TRAFFIC_LIGHTS)
+        N = QUEUE_NORTH
+        S = QUEUE_SOUTH
+        E = QUEUE_EAST
+        W = QUEUE_WEST
+        send_update(BOUCHONS, TRAFFIC_LIGHTS, N, S, E, W)
         time.sleep(0.5)
         duree += 0.5
         if BOUCHONS[0]>9 or BOUCHONS[1]>9 or BOUCHONS[2]>9 or BOUCHONS[3]>9:
