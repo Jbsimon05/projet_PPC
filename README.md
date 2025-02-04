@@ -20,7 +20,13 @@ The goal of this project is to design and implement a multi-process, multi-threa
 - **Sockets** : Used for communication between the display process and the clients.
 - **Semaphore** : Used to manage the passage of high-priority vehicles.
 
-### 3. How to Run the Project
+
+### 3. Project Structure
+
+![Project structure](Pictures/image_arborescence.png)
+
+
+### 4. How to Run the Project
 
 0. **Install Pygame** :
   ```sh
@@ -42,10 +48,6 @@ The goal of this project is to design and implement a multi-process, multi-threa
      ```sh
      python3 client.py
      ```
-
-### 4. Project Structure
-
-![Project structure](Pictures/image_arborescence.png)
 
 ### 5. Client interface
 
