@@ -23,6 +23,7 @@ def lights_manager(traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_
             traffic_lights[2] = 1
             traffic_lights[3] = 1
             traffic_lights[4] = t_feux
+            print("\nFeux:\n Nord/Sud-ROUGE, Est/Ouest-VERT pour", t_feux, "s")
         if sirene_S.is_set():
             print("\nPin pon pin pon...")
             print("\nVéhicule prioritaire détecté au sud ! Ajustement des feux...")
@@ -40,6 +41,7 @@ def lights_manager(traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_
             traffic_lights[2] = 1
             traffic_lights[3] = 1
             traffic_lights[4] = t_feux
+            print("\nFeux:\n Nord/Sud-ROUGE, Est/Ouest-VERT pour", t_feux, "s")
         if sirene_E.is_set():
             print("\nPin pon pin pon...")
             print("\nVéhicule prioritaire détecté à l'est ! Ajustement des feux...")
@@ -57,6 +59,7 @@ def lights_manager(traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_
             traffic_lights[1] = 1
             traffic_lights[2] = 0
             traffic_lights[4] = t_feux
+            print("\nFeux:\n Nord/Sud-VERT pour ", t_feux, "s, Est/Ouest-ROUGE")
         if sirene_W.is_set():
             print("\nPin pon pin pon...")
             print("\nVéhicule prioritaire détecté à l'ouest ! Ajustement des feux...")
@@ -74,6 +77,7 @@ def lights_manager(traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_
             traffic_lights[1] = 1
             traffic_lights[3] = 0
             traffic_lights[4] = t_feux
+            print("\nFeux:\n Nord/Sud-VERT pour ", t_feux, "s, Est/Ouest-ROUGE")
         #Gestion du trafic normal
         #si temps de switch atteint, inversion des feux
         if traffic_lights[4] == 0:

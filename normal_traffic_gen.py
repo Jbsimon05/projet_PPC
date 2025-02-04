@@ -2,12 +2,11 @@
 import random, time
 
 
-#Délais min et max de gen en s
-t_min = 0.5
-t_max = 2
+#Temps min et max de génération du véhicule en s
+t_gen= [1, 3]
 
-#temps de passage possibles du véhicule
-t_veh = [0.5, 1, 1.5, 2]
+#temps min et max de passage du véhicule en s
+t_veh = [0.5, 2]
 
 #index max
 i_max = 1000
@@ -19,13 +18,13 @@ def normal_traffic(north, south, east, west, bouchons, vehicles):
     index = 1
     while True:
         # Génération d'un véhicule
-        time.sleep(random.uniform(t_min, t_max))
+        time.sleep(random.uniform(t_gen[0], t_gen[1]))
         vehicle = {
             "id": index*2,
             "type": "normal",
             "source": random.choice(directions),
             "destination": random.choice(directions),
-            "t_pass": random.choice(t_veh)
+            "t_pass": random.uniform(t_veh[0], t_veh[1])
         }
         #Gestion de l'erreur du demi-tour
         while vehicle["source"] == vehicle["destination"]:

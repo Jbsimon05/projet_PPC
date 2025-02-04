@@ -2,12 +2,11 @@
 import random, time
 
 
-#Délais min et max de gen en s
-t_min = 3
-t_max = 9
+#Temps min et max de génération du véhicule en s
+t_gen= [6, 9]
 
-#temps de passage possibles du véhicule
-t_veh = [0.1]
+#temps min et max de passage du véhicule en s
+t_veh = [1, 3]
 
 #index max
 i_max = 1000
@@ -28,13 +27,13 @@ def priority_traffic(north, south, east, west, bouchons, vehicles, sirene_N, sir
     index = 1
     while True:
         # Génération d'un véhicule prioritaire
-        time.sleep(random.uniform(t_min, t_max))
+        time.sleep(random.uniform(t_gen[0], t_gen[1]))
         vehicle = {
             "id": index*2 - 1,
             "type": "priority",
             "source": random.choice(directions),
             "destination": random.choice(directions),
-            "t_pass": random.choice(t_veh)
+            "t_pass": random.uniform(t_veh[0], t_veh[1])
         }
         #Gestion de l'erreur du demi-tour
         while vehicle["source"] == vehicle["destination"]:

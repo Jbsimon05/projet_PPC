@@ -10,7 +10,7 @@ VEHICLE_WIDTH = 25 #largeur de véhicule
 VEHICLE_LENGTH = 35 #longueur de véhicule
 
 # Fréquence de raffraichissement de l'image
-FPS = 60
+FPS = 120
 
 # Couleurs
 NORMAL_COLOR = (0, 0, 255) #bleu
@@ -77,6 +77,7 @@ def draw_intersection():
     # Dessiner les véhicules
     draw_vehicles()
     pygame.display.flip()
+    # print(f"Carrefour dessiné")#: {traffic_data}")  #debug : données affichées
 
 def draw_vehicles():
     """Dessine les véhicules dans chaque file d'attente."""
@@ -93,7 +94,8 @@ def draw_vehicles():
             print("\nErreur de définition de la direction !")
         # Dessiner chaque véhicule
         i = 0
-        for v in queue:
+        while i < traffic_data["bouchons"][direction]:
+            v = queue[i]
             if v["type"] == "normal":
                 pygame.draw.rect(screen, NORMAL_COLOR, (base_x + i * offset_x, base_y + i * offset_y, size_x, size_y))
             elif v["type"] == "priority":
@@ -110,10 +112,12 @@ def receive_data():
     client_socket.connect((host, port))
     while True:
         try:
-            message = client_socket.recv(1024).decode()
+            message = client_socket.recv(10240).decode()
             if not message:
                 break
-            traffic_data = json.loads(message)  # Mise à jour des données
+            new_data = json.loads(message)  # Mise à jour des données
+            # print(f"Données reçues")#: {new_data}")  # Log des données reçues
+            traffic_data.update(new_data)
         except Exception as e:
             print(f"Erreur client : {e}")
             break
@@ -130,6 +134,7 @@ def main():
                 running = False
         draw_intersection()
         clock.tick(FPS)
+        # print(f"Tick : up frame")  #debug : mise à jour de la frame
     pygame.quit()
 
 if __name__ == "__main__":
