@@ -45,4 +45,4 @@ The goal of this project is to design and implement a multi-process, multi-threa
 
 ### 4. Project Structure
 
-![Project structure] (Pictures/image_arborescence.png)
+![Project structure](Pictures/image_arborescence.png)
