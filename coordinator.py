@@ -2,7 +2,7 @@
 import time
 
 
-#temps de latens entre deux checks successifs en s
+#temps de latence entre deux checks successifs en s
 t_wait = 0.1
 
 
