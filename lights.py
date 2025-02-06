@@ -98,6 +98,6 @@ def lights_manager(traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_
                 traffic_lights[4] = t_feux
                 print("\nFeux:\n Nord/Sud-VERT pour ", t_feux, "s, Est/Ouest-ROUGE")
             else:
-                print("\nBug détecté dans la gestion des feux")
+                print("\Erreur dans la gestion des feux")
         time.sleep(1) #Attente d'1s
         traffic_lights[4] -= 1

@@ -42,52 +42,80 @@ Le serveur est géré par un thread, qui ouvre un nouveau thread pour gérer cha
 ### Génération de trafic normal et prioritaire
 
 ```python
-def normal_traffic(north, south, east, west, bouchons, vehicles):
-    while True:
-        time.sleep(random.uniform(t_gen[0], t_gen[1]))
-        vehicle = generate_vehicle("normal")
-        add_vehicle_to_queue(vehicle)
-
-def priority_traffic(north, south, east, west, bouchons, vehicles, sirene_N, sirene_S, sirene_E, sirene_W, passage):
-    while True:
-        time.sleep(random.uniform(t_gen[0], t_gen[1]))
-        vehicle = generate_vehicle("priority")
-        add_vehicle_to_queue(vehicle)
-        trigger_siren(vehicle)
+'Queues', 'Sirenes': Nord, Sud, Est, Ouest
+def normal_traffic:
+    Répéter indéfiniment:
+        Attendre un temps de génération aléatoire
+        Créer un véhicule : 'id' paire, 'type' normal, 'source' et
+            'destination', 't_pass')
+        Ajouter le véhicule dans la queue de provenance
+def priority_traffic:
+    Répéter indéfiniment:
+        normal_traffic(); 'id' impaire, 'type' priority, 't_pass'
+        Activer la sirène de la queue de provenance
 ```
 
 ### Gestion des feux
 
 ```python
-def lights_manager(traffic_lights, t_feux, sirene_N, sirene_S, sirene_E, sirene_W, passage):
-    while True:
-        if sirene_N.is_set():
-            adjust_lights_for_priority("north")
-        elif sirene_S.is_set():
-            adjust_lights_for_priority("south")
-        elif sirene_E.is_set():
-            adjust_lights_for_priority("east")
-        elif sirene_W.is_set():
-            adjust_lights_for_priority("west")
-        else:
-            manage_normal_traffic_lights()
-        time.sleep(1)
+'t_feux' = temps avant inversion des feux
+def lights_manager:
+    Répéter indéfiniment:
+        Si sirène activée -> nord:
+            Ajuster les feux pour permettre le passage du véhicule
+                prioritaire -> nord
+            Attendre que le véhicule prioritaire passe
+            Réinitialiser les feux pour le trafic normal (Est/Ouest
+                vert)
+        Si sirène activée -> sud:
+            Ajuster les feux pour permettre le passage du véhicule
+                prioritaire -> sud
+            Attendre que le véhicule prioritaire passe
+            Réinitialiser les feux pour le trafic normal (Est/Ouest
+                vert)
+        Si sirène activée -> est:
+            Ajuster les feux pour permettre le passage du véhicule
+                prioritaire -> est
+            Attendre que le véhicule prioritaire passe
+            Réinitialiser les feux pour le trafic normal (Nord/Sud vert)
+        Si sirène activée -> ouest:
+            Ajuster les feux pour permettre le passage du véhicule
+                prioritaire -> ouest
+            Attendre que le véhicule prioritaire passe
+            Réinitialiser les feux pour le trafic normal (Nord/Sud
+                vert)
+        Si temps de switch atteint:
+            Inverser les feux pour le trafic normal
+        Attendre 1 seconde
+        Décrémenter le temps restant avant le prochain switch de feux
 ```
 
 ### Coordination des véhicules
 
 ```python
-def coordinator_process(north, south, east, west, bouchons, vehicles, traffic_lights):
-    while True:
-        if traffic_lights[0] == 1 and not north.empty():
-            allow_vehicle_to_pass("north")
-        elif traffic_lights[1] == 1 and not south.empty():
-            allow_vehicle_to_pass("south")
-        elif traffic_lights[2] == 1 and not east.empty():
-            allow_vehicle_to_pass("east")
-        elif traffic_lights[3] == 1 and not west.empty():
-            allow_vehicle_to_pass("west")
-        time.sleep(t_wait)
+def coordinator_process:
+    Répéter indéfiniment:
+        Si feu vert -> nord et file nord non vide:
+            Permettre au véhicule de passer
+            Réduire le nombre de véhicules en attente -> nord
+            Supprimer le véhicule de la liste des véhicules
+            Attendre le temps de passage du véhicule
+        Si feu vert -> sud et file sud non vide:
+            Permettre au véhicule de passer
+            Réduire le nombre de véhicules en attente -> sud
+            Supprimer le véhicule de la liste des véhicules
+            Attendre le temps de passage du véhicule
+        Si feu vert -> est et file est non vide:
+            Permettre au véhicule de passer
+            Réduire le nombre de véhicules en attente -> est
+            Supprimer le véhicule de la liste des véhicules
+            Attendre le temps de passage du véhicule
+        Si feu vert -> ouest et file ouest non vide:
+            Permettre au véhicule de passer
+            Réduire le nombre de véhicules en attente -> ouest
+            Supprimer le véhicule de la liste des véhicules
+            Attendre le temps de passage du véhicule
+        Attendre un court instant avant de vérifier à nouveau
 ```
 
 ## Plan d’implantation et tests effectués
