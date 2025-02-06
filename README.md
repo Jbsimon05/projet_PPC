@@ -63,11 +63,3 @@ Assurez-vous d'avoir Python et les bibliothèques nécessaires installées :
 
 3. Observer la simulation :
     Le client se connectera au serveur et affichera la simulation en temps réel à l'aide de Pygame.
-
-## Conclusion
-
-Ce projet met en pratique les concepts de programmation parallèle et concurrente pour simuler efficacement le trafic à une intersection.
-
-Grâce à l'utilisation de structures de données adaptées et de protocoles d'échange robustes, nous avons pu gérer le passage des véhicules normaux et prioritaires de manière ordonnée et sécurisée.
-
-La simulation en temps réel offre une visualisation claire et précise de l'état de l'intersection.
