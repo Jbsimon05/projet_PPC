@@ -65,7 +65,7 @@ Assurez-vous d'avoir Python et les bibliothèques nécessaires installées :
    python client.py
    ```
 
-    ![Image de l'arborescence](Pictures/image_Pygame.png)
+    ![Image de l'arborescence](Pictures/image_pygame.png)
 
 3. Observer la simulation :
     Le client se connectera au serveur et affichera la simulation en temps réel à l'aide de Pygame.
