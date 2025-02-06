@@ -49,7 +49,7 @@ port = 6666
 # Initialisation de Pygame
 pygame.init()
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption("Carrefour 'Au coin du cardinal")
+pygame.display.set_caption("Carrefour 'A la croisée des chemins'")
 
 # Variables globales pour stocker l'état du carrefour
 traffic_data = {
