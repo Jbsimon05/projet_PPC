@@ -56,6 +56,8 @@ Assurez-vous d'avoir Python et les bibliothèques nécessaires installées :
    python server.py
    ```
 
+    ![Image de l'arborescence](Pictures/image_Console.png)
+
 2. **Démarrer le client** :
     Ouvrez un autre terminal et exécutez la commande suivante :
 
@@ -63,7 +65,7 @@ Assurez-vous d'avoir Python et les bibliothèques nécessaires installées :
    python client.py
    ```
 
-    ![Image de l'arborescence](Pictures/image_pygame.png)
+    ![Image de l'arborescence](Pictures/image_Pygame.png)
 
 3. Observer la simulation :
     Le client se connectera au serveur et affichera la simulation en temps réel à l'aide de Pygame.
